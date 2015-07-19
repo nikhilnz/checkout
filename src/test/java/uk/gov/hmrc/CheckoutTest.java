@@ -13,7 +13,7 @@ public class CheckoutTest {
         String[] products = new String[] {"Apple"};
         String totalCost = checkout.checkout(products);
 
-        assertEquals("0.6", totalCost);
+        assertEquals("£0.60", totalCost);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class CheckoutTest {
         String[] products = new String[] {"Orange"};
         String totalCost = checkout.checkout(products);
 
-        assertEquals("0.25", totalCost);
+        assertEquals("£0.25", totalCost);
     }
 
     @Test
@@ -32,6 +32,6 @@ public class CheckoutTest {
         String[] products = new String[] {"Apple", "Apple", "Orange", "Apple"};
         String totalCost = checkout.checkout(products);
 
-        assertEquals("2.05", totalCost);
+        assertEquals("£2.05", totalCost);
     }
 }

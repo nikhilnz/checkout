@@ -1,25 +1,28 @@
 package uk.gov.hmrc;
 
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Checkout {
 
-    private static final Map<String, Double> PRODUCTS;
+    private PriceFormatter priceFormatter = new PriceFormatter();
+
+    private static final Map<String, BigDecimal> PRODUCTS;
     static
     {
-        PRODUCTS = new HashMap<String, Double>();
-        PRODUCTS.put("apple", new Double(0.60));
-        PRODUCTS.put("orange", new Double(0.25));
+        PRODUCTS = new HashMap<String, BigDecimal>();
+        PRODUCTS.put("apple", new BigDecimal(0.60));
+        PRODUCTS.put("orange", new BigDecimal(0.25));
     }
 
     public String checkout(String[] products) {
-        Double totalPrice = 0.0;
+        BigDecimal totalPrice = new BigDecimal(0.0);
         for (String product : products) {
-            Double price = PRODUCTS.get(product.toLowerCase());
-            totalPrice += price;
+            BigDecimal price = PRODUCTS.get(product.toLowerCase());
+            totalPrice = totalPrice.add(price);
         }
-        return totalPrice.toString();
+        return priceFormatter.format(totalPrice);
     }
 }
