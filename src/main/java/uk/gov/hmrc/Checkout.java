@@ -19,7 +19,7 @@ public class Checkout {
     public String checkout(String[] products) {
         BigDecimal totalPrice = new BigDecimal(0.0);
         for (String product : products) {
-            BigDecimal price = productCatalogue.getCatalogue().get(product.toLowerCase());
+            BigDecimal price = productCatalogue.getPrice(product.toLowerCase());
             totalPrice = totalPrice.add(price);
         }
         return priceFormatter.format(totalPrice);

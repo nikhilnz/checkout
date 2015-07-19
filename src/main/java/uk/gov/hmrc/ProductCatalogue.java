@@ -12,7 +12,7 @@ public class ProductCatalogue {
         this.catalogue = catalogue;
     }
 
-    public Map<String, BigDecimal> getCatalogue() {
+    private Map<String, BigDecimal> getCatalogue() {
         return catalogue;
     }
 
@@ -25,4 +25,7 @@ public class ProductCatalogue {
     }
     static ProductCatalogue DEFAULT_CATALOGUE = new ProductCatalogue(PRODUCTS);
 
+    public BigDecimal getPrice(String product) {
+        return getCatalogue().get(product).setScale(2, BigDecimal.ROUND_UP);
+    }
 }
