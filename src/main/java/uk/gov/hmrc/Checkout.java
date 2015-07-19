@@ -14,7 +14,12 @@ public class Checkout {
         PRODUCTS.put("orange", new Double(0.25));
     }
 
-    public String checkout(String apple) {
-        return PRODUCTS.get(apple.toLowerCase()).toString();
+    public String checkout(String[] products) {
+        Double totalPrice = 0.0;
+        for (String product : products) {
+            Double price = PRODUCTS.get(product.toLowerCase());
+            totalPrice += price;
+        }
+        return totalPrice.toString();
     }
 }
