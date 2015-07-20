@@ -9,9 +9,10 @@ import static org.junit.Assert.*;
 
 public class BuyOneGetOneFreeTest {
 
+    private BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree("Apple");
+
     @Test
     public void noOfferOnOneProduct() {
-        BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree(null);
         BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, new String[]{"Apple"});
 
         BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
@@ -20,7 +21,6 @@ public class BuyOneGetOneFreeTest {
 
     @Test
     public void offerOnEvenNumberOfProducts() {
-        BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree(null);
         BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, new String[]{"Apple", "Apple", "Apple", "Apple"});
 
         BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
@@ -29,7 +29,6 @@ public class BuyOneGetOneFreeTest {
 
     @Test
     public void offerOnOddNumberOfProducts() {
-        BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree(null);
         BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, new String[]{"Apple", "Apple", "Apple", "Apple", "Apple"});
 
         BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");

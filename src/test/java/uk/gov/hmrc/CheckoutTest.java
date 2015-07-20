@@ -66,7 +66,6 @@ public class CheckoutTest {
         assertEquals("£0.60", totalCost);
     }
 
-
     @Test
     public void costOfOneOrangeWithOffer() {
         String totalCost = checkoutWithOffer.checkout(new String[]{"Orange"});

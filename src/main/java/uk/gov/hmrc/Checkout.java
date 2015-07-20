@@ -1,9 +1,11 @@
 package uk.gov.hmrc;
 
 
+import org.assertj.core.util.Arrays;
 import uk.gov.hmrc.offers.Offer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +30,9 @@ public class Checkout {
             List<Offer> offers = offerCatalogue.getOffers();
             for (Offer offer : offers) {
                 String[] productsEligibleForOffer = select(offer.getProduct(), products);
-                totalPrice = totalPrice.add(offer.apply(productCatalogue, productsEligibleForOffer));
+                if (productsEligibleForOffer.length > 0) {
+                    totalPrice = totalPrice.add(offer.apply(productCatalogue, productsEligibleForOffer));
+                }
             }
         }
 
@@ -43,16 +47,16 @@ public class Checkout {
 
     private String[] select(String productToSelect, String[] products) {
         String[] productsList = products.clone();
-        String[] selectedList = new String[products.length];
-        int indexOfSelectedList = 0;
+        List<String> selectedList = new ArrayList<String>();
         for (int i = 0; i < productsList.length; i++) {
             String product = productsList[i];
             if (product != null && product.equalsIgnoreCase(productToSelect)) {
-                selectedList[indexOfSelectedList] = product;
-                indexOfSelectedList++;
+                selectedList.add(product);
                 products[i] = null;
             }
         }
-        return selectedList;
+        String[] toReturn = new String[selectedList.size()];
+        toReturn = selectedList.toArray(toReturn);
+        return toReturn;
     }
 }
