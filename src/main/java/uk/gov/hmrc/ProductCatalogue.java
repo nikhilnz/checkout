@@ -23,7 +23,7 @@ public class ProductCatalogue {
         PRODUCTS.put("apple", new BigDecimal(0.60));
         PRODUCTS.put("orange", new BigDecimal(0.25));
     }
-    static ProductCatalogue DEFAULT_CATALOGUE = new ProductCatalogue(PRODUCTS);
+    public static ProductCatalogue DEFAULT_CATALOGUE = new ProductCatalogue(PRODUCTS);
 
     public BigDecimal getPrice(String product) {
         return getCatalogue().get(product).setScale(2, BigDecimal.ROUND_UP);
