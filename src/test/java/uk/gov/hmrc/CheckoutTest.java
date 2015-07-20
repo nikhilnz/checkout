@@ -29,7 +29,7 @@ public class CheckoutTest {
     {
         OFFERS = new ArrayList< Offer>();
         OFFERS.add(new BuyOneGetOneFree("apple"));
-//        OFFERS.add(new ThreeForTwoOffer("orange"));
+        OFFERS.add(new ThreeForTwoOffer("orange"));
     }
     private OfferCatalogue  offerCatalogue = new OfferCatalogue(OFFERS);
 
@@ -71,6 +71,13 @@ public class CheckoutTest {
         String totalCost = checkoutWithOffer.checkout(new String[]{"Orange"});
         assertEquals("£0.25", totalCost);
     }
+
+    @Test
+    public void costOf3OrangesWithOffer() {
+        String totalCost = checkoutWithOffer.checkout(new String[]{"Orange", "Orange", "Orange"});
+        assertEquals("£0.50", totalCost);
+    }
+
 
 
 }

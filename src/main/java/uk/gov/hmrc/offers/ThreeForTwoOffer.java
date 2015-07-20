@@ -18,6 +18,13 @@ public class ThreeForTwoOffer implements Offer {
 
     @Override
     public BigDecimal apply(ProductCatalogue productCatalogue, String[] products) {
-        return null;
+        BigDecimal priceOfOneUnit = productCatalogue.getPrice(product.toLowerCase());
+        if (products.length < 3) {
+           return priceOfOneUnit.multiply(new BigDecimal(products.length));
+        } else if(products.length % 3 == 0) {
+            return priceOfOneUnit.multiply(new BigDecimal((products.length / 3) * 2));
+        } else {
+            return priceOfOneUnit.multiply(new BigDecimal((products.length / 3) * 2)).add(priceOfOneUnit.multiply(new BigDecimal(products.length % 3)));
+        }
     }
 }
