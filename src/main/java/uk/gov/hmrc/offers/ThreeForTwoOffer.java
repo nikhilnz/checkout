@@ -32,7 +32,7 @@ public class ThreeForTwoOffer extends Offer {
             return new BigDecimal(0.0);
         }
 
-        BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn.toLowerCase());
+        BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn);
         if (productsEligibleForOffer.size() < 3) {
            return priceOfOneUnit.multiply(new BigDecimal(productsEligibleForOffer.size()));
         } else if(productsEligibleForOffer.size() % 3 == 0) {

@@ -34,7 +34,7 @@ public class Checkout {
         }
 
         for (String product : productsList) {
-            BigDecimal price = productCatalogue.getPrice(product.toLowerCase());
+            BigDecimal price = productCatalogue.getPrice(product);
             totalPrice = totalPrice.add(price);
         }
         return priceFormatter.format(totalPrice);

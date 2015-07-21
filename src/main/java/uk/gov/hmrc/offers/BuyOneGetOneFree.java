@@ -33,7 +33,7 @@ public class BuyOneGetOneFree extends Offer {
             return new BigDecimal(0.0);
         }
 
-        BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn.toLowerCase());
+        BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn);
         if (productsEligibleForOffer.size() == 1) {
             return priceOfOneUnit;
         } else if(productsEligibleForOffer.size() % 2 == 0) {

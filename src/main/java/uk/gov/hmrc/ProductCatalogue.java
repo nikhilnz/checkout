@@ -26,6 +26,6 @@ public class ProductCatalogue {
     public static ProductCatalogue DEFAULT_CATALOGUE = new ProductCatalogue(PRODUCTS);
 
     public BigDecimal getPrice(String product) {
-        return getCatalogue().get(product).setScale(2, BigDecimal.ROUND_UP);
+        return getCatalogue().get(product.toLowerCase()).setScale(2, BigDecimal.ROUND_UP);
     }
 }
