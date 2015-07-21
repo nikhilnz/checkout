@@ -18,29 +18,19 @@ public class BuyOneGetOneFree extends Offer {
         this.productToApplyOfferOn = productToApplyOfferOn;
     }
 
-    public String getProductToApplyOfferOn() {
-        return productToApplyOfferOn;
-    }
-
     @Override
     public BigDecimal apply(ProductCatalogue productCatalogue, List<String> products) {
 
-        List<String> productsEligibleForOffer = getProductsEligibleForOffer(products, getProductToApplyOfferOn());
+        List<String> productsEligibleForOffer = getProductsEligibleForOffer(products, productToApplyOfferOn);
 
-        filterProducts(products, getProductToApplyOfferOn());
-
-        if( productsEligibleForOffer.size() == 0) {
-            return new BigDecimal(0.0);
-        }
+        BigDecimal discount = new BigDecimal(0.00);
 
         BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn);
-        if (productsEligibleForOffer.size() == 1) {
-            return priceOfOneUnit;
-        } else if(productsEligibleForOffer.size() % 2 == 0) {
-            return priceOfOneUnit.multiply(new BigDecimal(productsEligibleForOffer.size() / 2));
-        } else {
-            return priceOfOneUnit.multiply(new BigDecimal(productsEligibleForOffer.size() / 2)).add(priceOfOneUnit);
+        for (int i = 1; i <= productsEligibleForOffer.size(); i++) {
+            if(i % 2 == 0) {
+                discount = discount.add(priceOfOneUnit);
+            }
         }
-
+        return discount;
     }
 }

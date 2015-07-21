@@ -6,23 +6,22 @@ import uk.gov.hmrc.ProductCatalogue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class BuyOneGetOneFreeTest {
 
     private BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree("Apple");
+    public static final BigDecimal PRICE_OF_ONE_APPLE = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
 
     @Test
     public void noOfferOnOneProduct() {
         List<String> products = new ArrayList<String>();
         products.add("Apple");
-        BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
+        BigDecimal discount = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
-        assertEquals(priceOfOneApple, price);
+        assertEquals(new BigDecimal(0.00), discount);
     }
 
     @Test
@@ -32,10 +31,9 @@ public class BuyOneGetOneFreeTest {
         products.add("Apple");
         products.add("Apple");
         products.add("Apple");
-        BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
+        BigDecimal discount = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
-        assertEquals(priceOfOneApple.multiply(new BigDecimal(2)), price);
+        assertEquals(PRICE_OF_ONE_APPLE.add(PRICE_OF_ONE_APPLE), discount);
     }
 
     @Test
@@ -46,10 +44,9 @@ public class BuyOneGetOneFreeTest {
         products.add("Apple");
         products.add("Apple");
         products.add("Apple");
-        BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
+        BigDecimal discount = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
-        assertEquals(priceOfOneApple.multiply(new BigDecimal(2)).add(priceOfOneApple), price);
+        assertEquals(PRICE_OF_ONE_APPLE.add(PRICE_OF_ONE_APPLE), discount);
     }
 
     @Test
@@ -61,27 +58,9 @@ public class BuyOneGetOneFreeTest {
         products.add("Orange");
         products.add("Apple");
         products.add("Apple");
-        BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
+        BigDecimal discount = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        BigDecimal priceOfOneApple = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
-        assertEquals(priceOfOneApple.multiply(new BigDecimal(2)), price);
-
-    }
-
-    @Test
-    public void modifyTheProductListToRemoveTheProductsThatHaveTheOfferApplied() {
-        List<String> products = new ArrayList<String>();
-        products.add("Apple");
-        products.add("Orange");
-        products.add("Apple");
-        products.add("Orange");
-        products.add("Apple");
-        products.add("Apple");
-        buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
-
-        assertEquals( 2, products.size());
-        assertEquals(Arrays.asList("Orange", "Orange"), products);
-
+        assertEquals(PRICE_OF_ONE_APPLE.add(PRICE_OF_ONE_APPLE), discount);
     }
 
     @Test

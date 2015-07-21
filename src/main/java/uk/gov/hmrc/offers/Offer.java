@@ -6,13 +6,9 @@ import org.apache.commons.collections4.Predicate;
 import uk.gov.hmrc.ProductCatalogue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class Offer {
-
-    abstract String getProductToApplyOfferOn();
 
     public abstract BigDecimal apply(ProductCatalogue productCatalogue, List<String> products);
 
@@ -25,14 +21,5 @@ public abstract class Offer {
         });
     }
 
-    void filterProducts(List<String> products, String productToApplyOfferOn) {
-        Iterator<String> it = products.iterator();
-        while (it.hasNext()) {
-            String next = it.next();
-            if(next.equalsIgnoreCase(productToApplyOfferOn)) {
-                it.remove();
-            }
-        }
-    }
 }
 
