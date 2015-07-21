@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class BuyOneGetOneFree implements Offer {
+public class BuyOneGetOneFree extends Offer {
     private String productToApplyOfferOn;
 
     public BuyOneGetOneFree(String productToApplyOfferOn) {
@@ -25,20 +25,9 @@ public class BuyOneGetOneFree implements Offer {
     @Override
     public BigDecimal apply(ProductCatalogue productCatalogue, List<String> products) {
 
-        List<String> productsEligibleForOffer = ListUtils.select(products, new Predicate<String>() {
-            @Override
-            public boolean evaluate(String productName) {
-                return productName.equalsIgnoreCase(productToApplyOfferOn);
-            }
-        });
+        List<String> productsEligibleForOffer = getProductsEligibleForOffer(products, getProductToApplyOfferOn());
 
-        Iterator<String> it = products.iterator();
-        while (it.hasNext()) {
-            String next = it.next();
-            if(next.equalsIgnoreCase(productToApplyOfferOn)) {
-                it.remove();
-            }
-        }
+        filterProducts(products, getProductToApplyOfferOn());
 
         if( productsEligibleForOffer.size() == 0) {
             return new BigDecimal(0.0);
