@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ThreeForTwoOfferTest {
 
+    public static final BigDecimal ZERO_PRICE = BigDecimal.ZERO.setScale(2, BigDecimal.ROUND_UP);
     private ThreeForTwoOffer offer = new ThreeForTwoOffer("Orange");
     public static final BigDecimal PRICE_FOR_ONE_ORANGE = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("orange");
 
@@ -21,7 +22,7 @@ public class ThreeForTwoOfferTest {
         products.add("Orange");
         BigDecimal discount = offer.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        assertEquals(new BigDecimal(0.00), discount);
+        assertEquals(ZERO_PRICE, discount);
     }
 
     @Test
@@ -31,7 +32,7 @@ public class ThreeForTwoOfferTest {
         products.add("Orange");
         BigDecimal discount = offer.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        assertEquals(new BigDecimal(0.00), discount);
+        assertEquals(ZERO_PRICE, discount);
     }
 
     @Test
@@ -97,7 +98,7 @@ public class ThreeForTwoOfferTest {
         products.add("Apple");
         BigDecimal price = offer.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        assertEquals(new BigDecimal(0.00), price);
+        assertEquals(ZERO_PRICE, price);
     }
 
 }

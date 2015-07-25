@@ -15,7 +15,11 @@ public class Checkout {
     private OfferCatalogue offerCatalogue;
 
     public Checkout() {
-        this(ProductCatalogue.DEFAULT_CATALOGUE, null);
+        this(ProductCatalogue.DEFAULT_CATALOGUE, new OfferCatalogue(new ArrayList<Offer>()));
+    }
+
+    public Checkout(ProductCatalogue productCatalogue) {
+        this(productCatalogue, new OfferCatalogue(new ArrayList<Offer>()));
     }
 
     public Checkout(ProductCatalogue productCatalogue, OfferCatalogue offerCatalogue) {
@@ -24,31 +28,19 @@ public class Checkout {
     }
 
     public String checkout(String[] products) {
-        List<String> productsList = getProductsAsList(products);
+        List<String> productsList = Arrays.asList(products);
         BigDecimal totalPrice = new BigDecimal(0.0);
         BigDecimal discount = new BigDecimal(0.0);
 
         for (String product : productsList) {
-            BigDecimal price = productCatalogue.getPrice(product);
-            totalPrice = totalPrice.add(price);
+            totalPrice = totalPrice.add(productCatalogue.getPrice(product));
         }
 
-        if (offerCatalogue != null) {
-            for (Offer offer : offerCatalogue.getOffers()) {
-                discount = discount.add(offer.apply(productCatalogue, productsList));
-            }
+        for (Offer offer : offerCatalogue.getOffers()) {
+            discount = discount.add(offer.apply(productCatalogue, productsList));
         }
 
         return priceFormatter.format(totalPrice.subtract(discount));
-    }
-
-    private List<String> getProductsAsList(String[] products) {
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < products.length; i++) {
-            String product = products[i];
-            list.add(product);
-        }
-        return list;
     }
 
 }

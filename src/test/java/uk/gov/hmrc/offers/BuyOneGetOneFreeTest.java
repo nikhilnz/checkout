@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BuyOneGetOneFreeTest {
 
+    public static final BigDecimal ZERO_PRICE = BigDecimal.ZERO.setScale(2, BigDecimal.ROUND_UP);
     private BuyOneGetOneFree buyOneGetOneFree = new BuyOneGetOneFree("Apple");
     public static final BigDecimal PRICE_OF_ONE_APPLE = ProductCatalogue.DEFAULT_CATALOGUE.getPrice("apple");
 
@@ -21,7 +22,7 @@ public class BuyOneGetOneFreeTest {
         products.add("Apple");
         BigDecimal discount = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        assertEquals(new BigDecimal(0.00), discount);
+        assertEquals(BigDecimal.ZERO.setScale(2, BigDecimal.ROUND_UP), discount);
     }
 
     @Test
@@ -70,6 +71,6 @@ public class BuyOneGetOneFreeTest {
         products.add("Orange");
         BigDecimal price = buyOneGetOneFree.apply(ProductCatalogue.DEFAULT_CATALOGUE, products);
 
-        assertEquals(new BigDecimal(0.00), price);
+        assertEquals(ZERO_PRICE, price);
     }
 }

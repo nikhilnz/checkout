@@ -33,7 +33,7 @@ public class CheckoutTest {
     }
     private OfferCatalogue  offerCatalogue = new OfferCatalogue(OFFERS);
 
-    private Checkout checkoutWithoutOffer = new Checkout(productCatalogue, null);
+    private Checkout checkoutWithoutOffer = new Checkout(productCatalogue);
     private Checkout checkoutWithOffer = new Checkout(productCatalogue, offerCatalogue);
 
     @Test

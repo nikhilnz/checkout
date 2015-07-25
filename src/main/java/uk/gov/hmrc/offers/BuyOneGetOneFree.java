@@ -20,17 +20,9 @@ public class BuyOneGetOneFree extends Offer {
 
     @Override
     public BigDecimal apply(ProductCatalogue productCatalogue, List<String> products) {
-
         List<String> productsEligibleForOffer = getProductsEligibleForOffer(products, productToApplyOfferOn);
-
-        BigDecimal discount = new BigDecimal(0.00);
-
         BigDecimal priceOfOneUnit = productCatalogue.getPrice(productToApplyOfferOn);
-        for (int i = 1; i <= productsEligibleForOffer.size(); i++) {
-            if(i % 2 == 0) {
-                discount = discount.add(priceOfOneUnit);
-            }
-        }
+        BigDecimal discount = new BigDecimal(productsEligibleForOffer.size() / 2).multiply(priceOfOneUnit);
         return discount;
     }
 }
